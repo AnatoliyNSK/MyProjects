@@ -75,11 +75,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btn_select_catalog_Click()
-     Dim FSO As Object ' объект FileSystemObject
+    Dim FSO As Object ' объект FileSystemObject
     Set FSO = CreateObject("Scripting.FileSystemObject")
     Set входящая_папка = FSO.GetFolder(Dir1.PATH)
     Label_catalog.Caption = входящая_папка
-    'Form_select_catalog.Visible = False
+    
+    If входящая_папка <> "C:\_INPUT" Then
+         Form1.меню_режим_прометей.Enabled = True
+    End If
   
 End Sub
 

@@ -129,6 +129,9 @@ Begin VB.Form Form1
          Begin VB.Menu меню_copy_in_input 
             Caption         =   "КОПИРОВАНИЕ В _INPUT"
          End
+         Begin VB.Menu меню_режим_прометей 
+            Caption         =   "РЕЖИМ ПРОМЕТЕЙ"
+         End
       End
    End
 End
@@ -214,7 +217,7 @@ Form_worked_alarm.Visible = False
 Form_period_screensaver.Visible = False
 Form_period_screensaver.List1.Text = 3
 значение_нажатия = Form_period_screensaver.List1.Text
-
+меню_режим_прометей.Enabled = False
 
 End Sub
 
@@ -306,6 +309,9 @@ End Sub
 
 Private Sub меню_очистить_журналы_Click() ' пункт меню ОЧИСТИТЬ ЖУРНАЛЫ
 
+If Form1.меню_режим_прометей.Enabled = False Then
+
+
 If FSO.FileExists("C:\TS_NET\jur.txt") = True Then
    Open "C:\TS_NET\jur.txt" For Output As #2
    Print #2, Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) & Chr(42) ' СИМВОЛЫ ЗВЕЗДА
@@ -355,7 +361,38 @@ If FSO.FolderExists("C:\TS_NET\OUTPUT") = True Then ' проверка при загрузке на н
             FSO.DeleteFile PATH, 1
         Next
 End If
-
+Else
+     Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\out\files")
+        For Each FILE In FOLDER.Files
+            PATH = FSO.GetAbsolutePathName(FILE)
+            FSO.DeleteFile PATH, 1
+        Next
+        
+        Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\Input")
+        For Each FILE In FOLDER.Files
+            PATH = FSO.GetAbsolutePathName(FILE)
+            FSO.DeleteFile PATH, 1
+        Next
+        
+        Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\in\NoSec")
+        For Each FILE In FOLDER.Files
+            PATH = FSO.GetAbsolutePathName(FILE)
+            FSO.DeleteFile PATH, 1
+        Next
+        
+        Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\in\Sec")
+        For Each FILE In FOLDER.Files
+            PATH = FSO.GetAbsolutePathName(FILE)
+            FSO.DeleteFile PATH, 1
+        Next
+        
+        Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\in\FILES")
+        For Each FILE In FOLDER.Files
+            PATH = FSO.GetAbsolutePathName(FILE)
+            FSO.DeleteFile PATH, 1
+        Next
+    
+End If
 
 End Sub
 
