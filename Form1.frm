@@ -309,8 +309,7 @@ End Sub
 
 Private Sub меню_очистить_журналы_Click() ' пункт меню ОЧИСТИТЬ ЖУРНАЛЫ
 
-If Form1.меню_режим_прометей.Enabled = False Then
-
+If Form1.меню_режим_прометей.Checked = False Then
 
 If FSO.FileExists("C:\TS_NET\jur.txt") = True Then
    Open "C:\TS_NET\jur.txt" For Output As #2
@@ -369,10 +368,12 @@ Else
         Next
         
         Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\Input")
-        For Each FILE In FOLDER.Files
-            PATH = FSO.GetAbsolutePathName(FILE)
-            FSO.DeleteFile PATH, 1
-        Next
+        'For Each FILE In FOLDER.Files
+            'PATH = FSO.GetAbsolutePathName(FILE)
+            'FSO.DeleteFile PATH, 1
+        'Next
+        FSO.DeleteFolder FOLDER, 1
+        FSO.CreateFolder ("C:\Program Files\Prometey\msgs\Input")
         
         Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\in\NoSec")
         For Each FILE In FOLDER.Files
@@ -391,6 +392,12 @@ Else
             PATH = FSO.GetAbsolutePathName(FILE)
             FSO.DeleteFile PATH, 1
         Next
+        
+        If FSO.FileExists("C:\Program Files\Prometey\db003\journal.cop") = True Then
+            Open "C:\Program Files\Prometey\db003\journal.cop" For Output As #6
+            Reset
+        End If
+
     
 End If
 
@@ -486,6 +493,8 @@ Private Sub меню_очистить_рабочие_каталоги_Click() ' пункт меню ОЧИСТИТЬ РАБОЧИЕ
     End If
  
 End Sub
+
+
 
 Private Sub меню_смена_дежурства_Click() 'пункт меню СМЕНА ДЕЖУРСТВА
     меню_обновить_дату_Click
@@ -605,6 +614,14 @@ Private Sub меню_copy_in_input_Click()
         меню_copy_in_input.Checked = False
     End If
     
+End Sub
+
+Private Sub меню_режим_прометей_Click()
+    If меню_режим_прометей.Checked = False Then
+        меню_режим_прометей.Checked = True
+    Else
+        меню_режим_прометей.Checked = False
+    End If
 End Sub
 
 Private Sub Настройка_Click()
