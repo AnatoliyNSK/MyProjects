@@ -368,10 +368,6 @@ Else
         Next
         
         Set FOLDER = FSO.GetFolder("C:\Program Files\Prometey\msgs\Input")
-        'For Each FILE In FOLDER.Files
-            'PATH = FSO.GetAbsolutePathName(FILE)
-            'FSO.DeleteFile PATH, 1
-        'Next
         FSO.DeleteFolder FOLDER, 1
         FSO.CreateFolder ("C:\Program Files\Prometey\msgs\Input")
         
@@ -393,11 +389,16 @@ Else
             FSO.DeleteFile PATH, 1
         Next
         
+        freeKanal = FreeFile
         If FSO.FileExists("C:\Program Files\Prometey\db003\journal.cop") = True Then
-            Open "C:\Program Files\Prometey\db003\journal.cop" For Output As #6
-            Reset
+            Open "C:\Program Files\Prometey\db003\journal.cop" For Output As #freeKanal
         End If
-
+        
+        freeKanal = FreeFile
+        If FSO.FileExists("C:\Program Files\Prometey\db003\journal.dat") = True Then
+            Open "C:\Program Files\Prometey\db003\journal.dat" For Output As #freeKanal
+        End If
+        Reset
     
 End If
 
