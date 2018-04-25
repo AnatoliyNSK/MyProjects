@@ -82,6 +82,8 @@ Private Sub btn_select_catalog_Click()
     
     If входящая_папка <> "C:\_INPUT" Then
          Form1.меню_режим_прометей.Enabled = True
+    Else: Form1.меню_режим_прометей.Enabled = False
+          Form1.меню_режим_прометей.Checked = False
     End If
   
 End Sub
